@@ -5,17 +5,35 @@
     <script type="text/javascript" src="Scripts/jquery-2.1.1.js"></script>
     <script type="text/javascript">
         var ws;
+        
+
         $().ready(function () {
+            var ms = new MediaSource();
+            var videoSourceBuffer;
+            var video = document.querySelector('video');
+            video.src = window.URL.createObjectURL(ms);
+            ms.addEventListener('open', function (e) {
+                videoSourceBuffer = ms.addSourceBuffer('video\/mp4');
+                console.log("ms opend");
+            }, false);
+
             $("#btnConnect").click(function () {
                 $("#spanStatus").text("connecting");
+                
                 ws = new WebSocket("ws://onecamera.azurewebsites.net/OneCamera/OneCameraWebSocketHandler.ashx");
-                //ws = new WebSocket("ws://onecamera.azurewebsites.net/");
+                //ws = new WebSocket("ws://localhost:50330/OneCamera/OneCameraWebSocketHandler.ashx");
+                
                 ws.onopen = function () {
                     $("#spanStatus").text("connected");
                 };
+                
                 ws.onmessage = function (evt) {
-                    $("#spanStatus").text(evt.data);
+                    console.log(evt.data);
+
+                    //var fileReader = new FileReader(evt.data);
+                    videoSourceBuffer.appendBuffer(evt.data);
                 };
+                
                 ws.onerror = function (evt) {
                     $("#spanStatus").text(evt.message);
                 };
@@ -42,5 +60,7 @@
     <input type="text" id="textInput" />
     <input type="button" value="Send" id="btnSend" /><br />
     <span id="spanStatus">(display)</span>
+    <video id="example_div_video" class="video-js vjs-default-skin" controls preload="auto" width="511" height="382"  data-setup="{}">
+    </video>
 </body>
 </html>

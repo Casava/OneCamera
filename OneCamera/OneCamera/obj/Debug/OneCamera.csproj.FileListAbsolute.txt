@@ -5,3 +5,10 @@ C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\OneCamera.pdb
 C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\Microsoft.WebSockets.dll
 C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\obj\Debug\OneCamera.dll
 C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\obj\Debug\OneCamera.pdb
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll.config
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\OneCamera.pdb
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\Microsoft.WebSockets.dll
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\obj\Debug\OneCamera.dll
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\obj\Debug\OneCamera.pdb
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\Assets\WP_20140928_004.mp4

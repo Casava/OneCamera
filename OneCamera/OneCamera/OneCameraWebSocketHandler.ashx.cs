@@ -17,6 +17,7 @@ namespace OneCamera
     {
         public void ProcessRequest(HttpContext context)
         {
+            VideoData.Instance.GetVideoLength();
             if (context.IsWebSocketRequest || context.IsWebSocketRequestUpgrading)
             {
                 context.AcceptWebSocketRequest(ProcessRequest);
@@ -32,10 +33,21 @@ namespace OneCamera
                 WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
                 if (socket.State == WebSocketState.Open)
                 {
-                    string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
-                    userMessage = "From OneCamera, You sent: " + userMessage + " at " + DateTime.Now.ToLongTimeString();
-                    buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
-                    await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                    var videoLength = VideoData.Instance.GetVideoLength();
+
+                    //string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
+                    //userMessage = string.Format("From OneCamera, You sent: {0} at {1}; Video size : {2} Bytes",
+                    //    userMessage, DateTime.Now.ToLongTimeString(), videoLength);
+                    //buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
+                    //await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+
+                    for (int i = 0; i < videoLength; i += 5012)
+                    {
+                        var bytes = VideoData.Instance.GetVideoBytes(i, 5012);
+                        VideoData.Instance.GetVideoBytes(i, (int) videoLength - i);
+                        var videoBuffer = new ArraySegment<byte>(bytes);
+                        await socket.SendAsync(videoBuffer, WebSocketMessageType.Binary, true, CancellationToken.None);
+                    }
                 }
                 else
                 {

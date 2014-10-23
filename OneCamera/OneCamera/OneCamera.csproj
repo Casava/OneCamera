@@ -60,6 +60,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\video-js.css" />
+    <Content Include="Content\video-js.min.css" />
+    <Content Include="Content\video-js.swf" />
+    <Content Include="fonts\vjs.svg" />
+    <Content Include="fonts\vjs.woff" />
+    <Content Include="fonts\vjs.ttf" />
+    <Content Include="fonts\vjs.eot" />
+    <Content Include="Content\video-js.less" />
     <None Include="Properties\PublishProfiles\onecamera.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -69,12 +77,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\WP_20140928_004.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="default.html" />
     <Content Include="packages.config" />
     <Content Include="OneCameraWebSocketHandler.ashx" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\video.dev.js" />
+    <Content Include="Scripts\video.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
@@ -83,6 +96,7 @@
       <DependentUpon>OneCameraWebSocketHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoData.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
