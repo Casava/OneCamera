@@ -12,10 +12,9 @@
             var videoSourceBuffer;
             var video = document.querySelector('video');
             video.src = window.URL.createObjectURL(ms);
-            ms.addEventListener('open', function (e) {
+            ms.addEventListener('sourceopen', function (e) {
                 console.log("ms opend");
-                videoSourceBuffer = ms.addSourceBuffer('video\/mp4');
-                
+                videoSourceBuffer = ms.addSourceBuffer('video/webm; codecs="vorbis,vp8"');
             }, false);
 
             $("#btnConnect").click(function () {
@@ -29,12 +28,13 @@
                 };
                 
                 ws.onmessage = function (evt) {
+                    //http://stackoverflow.com/questions/22996665/unable-to-get-mediasource-working-with-mp4-format-in-chrome
                     //http://stackoverflow.com/questions/22157623/h264-video-works-using-src-attribute-same-video-fails-using-the-mediasource-api
                     //http://html5-demos.appspot.com/static/media-source.html
                     console.log(evt.data);
 
-                    //var fileReader = new FileReader(evt.data);
-                    videoSourceBuffer.appendBuffer(evt.data);
+                    var fileReader = new FileReader(evt.data);
+                    videoSourceBuffer.appendBuffer(fileReader.readAsArrayBuffer(evt.data));
                 };
                 
                 ws.onerror = function (evt) {
