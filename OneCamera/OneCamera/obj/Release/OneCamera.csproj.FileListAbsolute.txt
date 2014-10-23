@@ -1,0 +1,6 @@
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\OneCamera.dll.config
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\OneCamera.dll
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\OneCamera.pdb
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\Microsoft.WebSockets.dll
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\obj\Release\OneCamera.dll
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\obj\Release\OneCamera.pdb
