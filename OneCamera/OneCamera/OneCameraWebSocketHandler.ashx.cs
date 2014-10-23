@@ -24,6 +24,7 @@ namespace OneCamera
             }
         }
 
+
         private async Task ProcessRequest(AspNetWebSocketContext context)
         {
             WebSocket socket = context.WebSocket;

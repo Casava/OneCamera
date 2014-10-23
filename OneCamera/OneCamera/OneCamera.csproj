@@ -60,6 +60,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="camera.js" />
     <Content Include="Content\video-js.css" />
     <Content Include="Content\video-js.min.css" />
     <Content Include="Content\video-js.swf" />
@@ -68,6 +69,8 @@
     <Content Include="fonts\vjs.ttf" />
     <Content Include="fonts\vjs.eot" />
     <Content Include="Content\video-js.less" />
+    <None Include="Properties\PublishProfiles\onecamera %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\onecamera %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\onecamera.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
