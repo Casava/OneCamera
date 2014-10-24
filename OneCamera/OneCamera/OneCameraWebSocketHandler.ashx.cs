@@ -30,25 +30,26 @@ namespace OneCamera
             WebSocket socket = context.WebSocket;
             while (true)
             {
-                var buffer = new ArraySegment<byte>(new byte[1024]);
+                var buffer = new ArraySegment<byte>(new byte[10240]);
                 WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
                 if (socket.State == WebSocketState.Open)
                 {
-                    var videoLength = VideoData.Instance.GetVideoLength();
+                    //var videoLength = VideoData.Instance.GetVideoLength();
 
-                    //string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
+                    string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
                     //userMessage = string.Format("From OneCamera, You sent: {0} at {1}; Video size : {2} Bytes",
                     //    userMessage, DateTime.Now.ToLongTimeString(), videoLength);
-                    //buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
-                    //await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                    buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
+                    if (buffer.Count > 5)
+                        await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
 
-                    for (int i = 0; i < videoLength; i += 5012)
-                    {
-                        var bytes = VideoData.Instance.GetVideoBytes(i, 5012);
-                        VideoData.Instance.GetVideoBytes(i, (int) videoLength - i);
-                        var videoBuffer = new ArraySegment<byte>(bytes);
-                        await socket.SendAsync(videoBuffer, WebSocketMessageType.Binary, true, CancellationToken.None);
-                    }
+                    //for (int i = 0; i < videoLength; i += 5012)
+                    //{
+                    //    var bytes = VideoData.Instance.GetVideoBytes(i, 5012);
+                    //    VideoData.Instance.GetVideoBytes(i, (int) videoLength - i);
+                    //    var videoBuffer = new ArraySegment<byte>(bytes);
+                    //    await socket.SendAsync(videoBuffer, WebSocketMessageType.Binary, true, CancellationToken.None);
+                    //}
                 }
                 else
                 {

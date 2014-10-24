@@ -3,21 +3,13 @@
 <head>
     <title>WebSocket Chat</title>
     <script type="text/javascript" src="Scripts/jquery-2.1.1.js"></script>
-    <script type="text/javascript" src="oneCameraWebSockets.js"></script>
-    <script type="text/javascript" src="wsVideoRecorder.js"></script>
+    <script type="text/javascript" src="webSocket.js"></script>
     <script type="text/javascript" src="camera.js"></script>
     </head>
     <body>
-        <input type="button" value="Connect" id="btnConnect" /><input type="button" value="Disconnect" id="btnDisconnect" /><br />
-        <input type="text" id="textInput" />
-        <input type="button" value="Send" id="btnSend" /><br />
         <input type="button" value="open camera" id="btnCamera" />
-        <span id="spanStatus">(display)</span>
         <video autoplay id="videoCamera"></video>
-        <video id="videoWebSocket" class="video-js vjs-default-skin" controls preload="auto" width="511" height="382"  data-setup="{}">
-        </video>
-        <br />
-        <div id="thumbnailContainer"></div>
+        <div id="videoWebSocket" />
     </body>
     </html>
 
