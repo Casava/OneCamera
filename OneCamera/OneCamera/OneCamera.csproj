@@ -69,6 +69,7 @@
     <Content Include="fonts\vjs.ttf" />
     <Content Include="fonts\vjs.eot" />
     <Content Include="Content\video-js.less" />
+    <Content Include="oneCameraWebSockets.js" />
     <None Include="Properties\PublishProfiles\onecamera %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\onecamera %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\onecamera.pubxml" />
