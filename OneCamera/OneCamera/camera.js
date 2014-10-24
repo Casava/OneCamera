@@ -26,8 +26,8 @@ function drawVideoFrame(time) {
     ctx.drawImage(video, 0, 0, cameraRecordCanvas.width, cameraRecordCanvas.height);
     //frames.push(cameraRecordCanvas.toDataURL('image/webp', 1));
     var image = cameraRecordCanvas.toDataURL("image/webp", 1);
+    console.log(image);
     //ws.send(dataUritoView(image));
-    console.log(dataUritoView(image));
 };
 
 
@@ -48,11 +48,10 @@ cameraVideo.addEventListener('loadeddata', function () {
 
     rafId = window.requestAnimationFrame(drawVideoFrame);
     ctx.drawImage(video, 0, 0, cameraRecordCanvas.width, cameraRecordCanvas.height);
-    console.log("Saving Frame");
     //frames.push(cameraRecordCanvas.toDataURL('image/webp', 1));
     var image = cameraRecordCanvas.toDataURL("image/webp", 1);
+    console.log(image);
     //ws.send(dataUritoView(image));
-    console.log(dataUritoView(image));
 });
 
 function startCamera() {
