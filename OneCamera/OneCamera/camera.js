@@ -11,32 +11,42 @@ var localCameraMediaStream;
 
 $().ready(function () {
     var cameraRecordCanvas = document.createElement('canvas');
-    cameraRecordCanvas.width = 640;
-    cameraRecordCanvas.height = 360;
+    cameraRecordCanvas.width = 500;
+    cameraRecordCanvas.height = 250;
     var ctx = cameraRecordCanvas.getContext('2d');
 
 
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                                   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
+    //var videoWebSocketDiv = document.getElementById("videoWebSocket");
+
     function drawVideoFrame(time) {
         rafId = window.requestAnimationFrame(drawVideoFrame);
-        ctx.drawImage(cameraVideo, 0, 0, cameraRecordCanvas.width, cameraRecordCanvas.height);
-        //frames.push(cameraRecordCanvas.toDataURL('image/webp', 1));
+        ctx.drawImage(cameraVideo, 0, 0, 500, 250, 0, 0, 500, 250);
         var image = cameraRecordCanvas.toDataURL("image/webp", 0.5);
         //console.log(image);
-        ws.send(image);
+
+
+        //videoWebSocketDiv.removeChild(videoWebSocketDiv.firstChild);
+        //var elem = document.createElement("img");
+        //elem.setAttribute("src", image);
+        //elem.setAttribute("height", "250");
+        //elem.setAttribute("width", "500");
+        //videoWebSocketDiv.appendChild(elem);
+
+        //ws.send(image);
         //dataUritoView(image);
-        //ws.send(dataUritoView(image));
+        ws.send(dataUritoView(image));
     };
 
 
     function dataUritoView(dataUri) {
         // convert base64 to raw binary data held in a string
         // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-        console.log('dataUri ' + dataUri.length);
+        //console.log('dataUri ' + dataUri.length);
         var byteString = atob(dataUri.split(',')[1]);
-        console.log('byteString ' + byteString.length);
+        //console.log('byteString ' + byteString.length);
         var ab = new ArrayBuffer(byteString.length);
         var view = new DataView(ab);
         for (var i = 0; i < byteString.length; i++) {
@@ -59,8 +69,8 @@ $().ready(function () {
             {
                 video: {
                     mandatory: {
-                        maxWidth: 640,
-                        maxHeight: 360
+                        maxWidth: 500,
+                        maxHeight: 250
                     }
                 },
                 audio: false
@@ -71,11 +81,6 @@ $().ready(function () {
                 localCameraMediaStream = localMediaStream;
                 cameraVideo.addEventListener('loadeddata', function () {
                     rafId = window.requestAnimationFrame(drawVideoFrame);
-                    ctx.drawImage(cameraVideo, 0, 0, cameraRecordCanvas.width, cameraRecordCanvas.height);
-                    //frames.push(cameraRecordCanvas.toDataURL('image/webp', 1));
-                    var image = cameraRecordCanvas.toDataURL("image/webp", 1);
-                    console.log(image);
-                    //ws.send(dataUritoView(image));
                 });
             },
             function (e) {
