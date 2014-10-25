@@ -29,7 +29,7 @@ namespace OneCamera
             WebSocket socket = context.WebSocket;
             while (true)
             {
-                var buffer = new ArraySegment<byte>(new byte[10240]);
+                var buffer = new ArraySegment<byte>(new byte[50960]);
                 WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
                 if (socket.State == WebSocketState.Open)
                 {
