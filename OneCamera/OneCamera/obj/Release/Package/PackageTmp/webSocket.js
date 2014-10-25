@@ -34,9 +34,9 @@ $().ready(function () {
         catch(err)
         {
             console.log(err);
+            console.log('length ');
             console.log(evt.data.toString().length);
         }
-
     };
 
     ws.onerror = function (evt) {

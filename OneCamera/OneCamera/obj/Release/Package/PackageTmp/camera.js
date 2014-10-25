@@ -23,7 +23,7 @@ $().ready(function () {
 
     function drawVideoFrame(time) {
         rafId = window.requestAnimationFrame(drawVideoFrame);
-        ctx.drawImage(cameraVideo, 0, 0, 500, 250, 0, 0, 500, 250);
+        ctx.drawImage(cameraVideo, 0, 0, 500, 250);
         var image = cameraRecordCanvas.toDataURL("image/webp", 0.5);
         //console.log(image);
 
@@ -35,6 +35,7 @@ $().ready(function () {
         //elem.setAttribute("width", "500");
         //videoWebSocketDiv.appendChild(elem);
 
+        //console.log(image);
         ws.send(image);
         //dataUritoView(image);
         //ws.send(dataUritoView(image));
@@ -81,11 +82,6 @@ $().ready(function () {
                 localCameraMediaStream = localMediaStream;
                 cameraVideo.addEventListener('loadeddata', function () {
                     rafId = window.requestAnimationFrame(drawVideoFrame);
-                    ctx.drawImage(cameraVideo, 0, 0, cameraRecordCanvas.width, cameraRecordCanvas.height);
-                    //frames.push(cameraRecordCanvas.toDataURL('image/webp', 1));
-                    var image = cameraRecordCanvas.toDataURL("image/webp", 1);
-                    console.log(image);
-                    //ws.send(dataUritoView(image));
                 });
             },
             function (e) {

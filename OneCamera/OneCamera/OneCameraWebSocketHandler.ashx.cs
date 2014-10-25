@@ -30,15 +30,16 @@ namespace OneCamera
             WebSocket socket = context.WebSocket;
             while (true)
             {
-                var buffer = new ArraySegment<byte>(new byte[102400]);
+                var buffer = new ArraySegment<byte>(new byte[5096]);
                 WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
                 if (socket.State == WebSocketState.Open)
                 {
                     //var videoLength = VideoData.Instance.GetVideoLength();
 
-                    string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
-                    var newBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
-                    await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                    //string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
+                    //var newBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
+                    var newBuffer = new ArraySegment<byte>(buffer.Array, 0, result.Count + 1);
+                    await socket.SendAsync(newBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
 
                     //for (int i = 0; i < videoLength; i += 5012)
                     //{

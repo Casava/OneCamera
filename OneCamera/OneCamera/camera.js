@@ -23,7 +23,7 @@ $().ready(function () {
 
     function drawVideoFrame(time) {
         rafId = window.requestAnimationFrame(drawVideoFrame);
-        ctx.drawImage(cameraVideo, 0, 0, 500, 250, 0, 0, 500, 250);
+        ctx.drawImage(cameraVideo, 0, 0, 500, 250);
         var image = cameraRecordCanvas.toDataURL("image/webp", 0.5);
         //console.log(image);
 
@@ -35,9 +35,10 @@ $().ready(function () {
         //elem.setAttribute("width", "500");
         //videoWebSocketDiv.appendChild(elem);
 
-        //ws.send(image);
+        //console.log(image);
+        ws.send(image);
         //dataUritoView(image);
-        ws.send(dataUritoView(image));
+        //ws.send(dataUritoView(image));
     };
 
 
