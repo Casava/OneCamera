@@ -1,0 +1,22 @@
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\OneCamera.dll.config
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\OneCamera.dll
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\OneCamera.pdb
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\bin\Microsoft.WebSockets.dll
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\obj\Release\OneCamera.dll
+C:\GoodBox\Exoé Learning Project\OneCamera\OneCamera\obj\Release\OneCamera.pdb
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll.config
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\OneCamera.pdb
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\Microsoft.WebSockets.dll
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.csprojResolveAssemblyReference.cache
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.dll
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.pdb
+C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\Assets\WP_20140928_004.mp4
+C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\Assets\WP_20140928_004.mp4
+C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll.config
+C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll
+C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.pdb
+C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\Microsoft.WebSockets.dll
+C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.csprojResolveAssemblyReference.cache
+C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.dll
+C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.pdb
