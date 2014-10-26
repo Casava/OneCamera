@@ -1,8 +1,11 @@
-$(function($){
+$(function(){
 
-	var ws = new WebSocket("ws://localhost:8080", 'echoi-portocol');
+	var ws = new WebSocket("ws://localhost:8080/send", 'echo-portocol');
 
-	var cameraRecordCanvas = $('#videocanvas');
+	// var cameraRecordCanvas = $('#videocanvas');
+	var cameraRecordCanvas = document.createElement('canvas');
+	cameraRecordCanvas.width = 500;
+	cameraRecordCanvas.height = 250;
 
 	window.requestAnimationFrame = window.requestAnimationFrame
 				|| window.mozRequestAnimationFrame
@@ -12,7 +15,7 @@ $(function($){
 	function drawVideoFrame(time){
 		rafId = window.requestAnimationFrame(drawVideoFrame);
 
-		var ctx = cameraRecordCanavas.getContext('2d');
+		var ctx = cameraRecordCanvas.getContext('2d');
 		ctx.drawImage(cameraVideo, 0, 0, 500, 250);
 		var image = cameraRecordCanvas.toDataURL("image/webp", 0.5);
 		ws.send(image);
@@ -65,4 +68,4 @@ $(function($){
 		}
 	});
 
-})(jQuery);
+});
