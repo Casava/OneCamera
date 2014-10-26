@@ -1,6 +1,6 @@
 $(function(){
 
-	var ws = new WebSocket("ws://localhost:8080", 'echo-portocol');
+	var ws = new WebSocket("ws://localhost:8080/send", 'echo-portocol');
 
 	// var cameraRecordCanvas = $('#videocanvas');
 	var cameraRecordCanvas = document.createElement('canvas');

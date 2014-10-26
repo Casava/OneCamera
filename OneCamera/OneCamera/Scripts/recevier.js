@@ -11,7 +11,7 @@ $(function(){
 	$('#start').on('click', function(){
 		console.log("started");
 		// socket = new WebSocket("ws://onecamera.azurewebsites.net/OneCamera/OneCameraWebSocketHandler.ashx");
-		socket = new WebSocket("ws://localhost:8080", 'echo-portocol');
+		socket = new WebSocket("ws://localhost:8080/receive", 'echo-portocol');
 
 		socket.onopen = function(){
 			console.log("connected");
