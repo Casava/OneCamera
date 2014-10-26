@@ -12,7 +12,6 @@ C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.csprojReso
 C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.dll
 C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\obj\Release\OneCamera.pdb
 C:\GoodBox\Github\OneCamera\OneCamera\OneCamera\bin\Assets\WP_20140928_004.mp4
-C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\Assets\WP_20140928_004.mp4
 C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll.config
 C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll
 C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.pdb

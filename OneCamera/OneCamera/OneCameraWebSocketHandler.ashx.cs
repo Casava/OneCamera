@@ -27,25 +27,60 @@ namespace OneCamera
         private async Task ProcessRequest(AspNetWebSocketContext context)
         {
             WebSocket socket = context.WebSocket;
+            bool read = true;
+            long lastKey = 0;
             while (true)
-            {
-                var buffer = new ArraySegment<byte>(new byte[50960]);
-                WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
+            {  
                 if (socket.State == WebSocketState.Open)
                 {
-                    //var videoLength = VideoData.Instance.GetVideoLength();
-
-                    //string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
-                    //var newBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
-                    //var newBuffer = new ArraySegment<byte>(buffer.Array, 0, result.Count);
-                    //await socket.SendAsync(newBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
-                    await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
-                }
-                else
-                {
-                    break;
+                    if (read)
+                    {
+                        var buffer = new ArraySegment<byte>(new byte[100000]);
+                        WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
+                        string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
+                        if (userMessage.StartsWith("Send Require"))
+                            read = false;
+                        else
+                            OneCameraBuffer.Instance.AddNewFrame(buffer);
+                    }
+                    else
+                    {
+                        ArraySegment<byte> buffer;
+                        long recentKey = OneCameraBuffer.Instance.GetFrame(lastKey, out buffer);
+                        if (recentKey != 0 && recentKey > lastKey && buffer != null)
+                        {
+                            lastKey = recentKey;
+                            await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                        }
+                    }
                 }
             }
+
+            //var webSocketTasks = new List<Task>();
+            //webSocketTasks.Add(Task.Factory.StartNew(new Action<object>(async ws => {
+            //    var sendWs = ws as WebSocket;
+            //    long lastKey = 0;
+            //    while(sendWs.State == WebSocketState.Open)
+            //    {
+            //        ArraySegment<byte> buffer;
+            //        lastKey = OneCameraBuffer.Instance.GetFrame(lastKey, out buffer);
+            //        if (lastKey != 0)
+            //            await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            //    }
+            //}), socket));
+            //webSocketTasks[0].Start();
+            //webSocketTasks.Add(Task.Factory.StartNew(new Action<object>(async ws =>
+            //{
+            //    var receiveWs = ws as WebSocket;
+            //    while (receiveWs.State == WebSocketState.Open)
+            //    {
+            //        var buffer = new ArraySegment<byte>(new byte[50960]);
+            //        WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
+            //        OneCameraBuffer.Instance.AddNewFrame(buffer);
+            //    }
+            //}), socket));
+            //webSocketTasks[1].Start();
+            //Task.WaitAll(webSocketTasks.ToArray());
         }
 
         public bool IsReusable

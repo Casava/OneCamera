@@ -11,8 +11,8 @@ var localCameraMediaStream;
 
 $().ready(function () {
     var cameraRecordCanvas = document.createElement('canvas');
-    cameraRecordCanvas.width = 500;
-    cameraRecordCanvas.height = 250;
+    cameraRecordCanvas.width = 600;
+    cameraRecordCanvas.height = 300;
 
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                                   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -21,7 +21,7 @@ $().ready(function () {
         rafId = window.requestAnimationFrame(drawVideoFrame);
         var ctx = cameraRecordCanvas.getContext('2d');
         //ctx.scale(0.8, 0.8);
-        ctx.drawImage(cameraVideo, 0, 0, 500, 250);
+        ctx.drawImage(cameraVideo, 0, 0, 600, 300);
         var image = cameraRecordCanvas.toDataURL("image/webp", 0.5);
 
 
@@ -65,8 +65,8 @@ $().ready(function () {
             {
                 video: {
                     mandatory: {
-                        maxWidth: 500,
-                        maxHeight: 250
+                        maxWidth: 600, 
+                        maxHeight: 300
                     }
                 },
                 audio: false
