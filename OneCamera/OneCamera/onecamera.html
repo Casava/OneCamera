@@ -15,17 +15,23 @@
                     ws.send("Send Require");
                     console.log("Send Require");
                 };
-
+                var imageIndex = 0;
+                var lastReceivedData;
                 ws.onmessage = function (evt) {
                     //http://www.html5rocks.com/en/tutorials/getusermedia/intro/
                     //http://stackoverflow.com/questions/22996665/unable-to-get-mediasource-working-with-mp4-format-in-chrome
                     //http://stackoverflow.com/questions/22157623/h264-video-works-using-src-attribute-same-video-fails-using-the-mediasource-api
                     //http://html5-demos.appspot.com/static/media-source.html
 
-                    var videoImg = document.getElementById("videoImg");
-                    videoImg.setAttribute("src", evt.data);
-                    videoImg.setAttribute("width", "600");
-                    videoImg.setAttribute("height", "300");
+                    if (evt.data.toString().substring(0, 5) === 'data:' && lastReceivedData) {
+                        var videoImg = document.getElementById("videoImg");
+                        videoImg.setAttribute("src", evt.data.toString());
+                        videoImg.setAttribute("width", "600");
+                        videoImg.setAttribute("height", "300");
+                        lastReceivedData = evt.data.toString();
+                    }
+                    else
+                        lastReceivedData += evt.data.toString();
                 };
 
                 ws.onerror = function (evt) {
@@ -39,6 +45,8 @@
     </head>
     <body>
         <span>Video from WebSocket</span>
-        <img id="videoImg" />
+        <img id="videoImg" width="600" height="300" />
+
+        <!--<canvas height="300" width="600" id="copyCanvas" />-->
     </body>
 </html>

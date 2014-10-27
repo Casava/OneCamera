@@ -5,6 +5,7 @@
 
 //https://github.com/burtlo/videojs/blob/master/views/index.erb
 
+
 var rafId;
 var cameraVideo;
 var localCameraMediaStream;
@@ -17,18 +18,24 @@ $().ready(function () {
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                                   window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
+    var imageArray = [];
+    var imageIndex = 0;
+
     function drawVideoFrame(time) {
         rafId = window.requestAnimationFrame(drawVideoFrame);
         var ctx = cameraRecordCanvas.getContext('2d');
         //ctx.scale(0.8, 0.8);
         ctx.drawImage(cameraVideo, 0, 0, 600, 300);
-        var image = cameraRecordCanvas.toDataURL("image/webp", 0.5);
-
-
-        //console.log(image);
-        ws.send(image);
-        //dataUritoView(image);
-        //ws.send(dataUritoView(image));
+        var imageDataUrl = cameraRecordCanvas.toDataURL("image/webp");
+        //var imageData = ctx.getImageData(0, 0, 600, 300);
+        //console.log(imageDataUrl.length);
+        console.log(imageDataUrl);
+        ws.send(imageDataUrl.toString());
+        
+        var videoImg = document.getElementById("videoImg");
+        videoImg.setAttribute("src", imageDataUrl.toString());
+        videoImg.setAttribute("width", "600");
+        videoImg.setAttribute("height", "300");
     };
 
 
@@ -40,10 +47,10 @@ $().ready(function () {
         var ab = new ArrayBuffer(byteString.length);
         $("#spanStatus").text(lengthInUtf8Bytes(dataUri));
         return byteString;
-        //var view = new DataView(ab);
-        //for (var i = 0; i < byteString.length; i++) {
-        //    view.setUint8(i, byteString.charCodeAt(i), true);
-        //}
+        var view = new DataView(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            view.setUint8(i, byteString.charCodeAt(i), true);
+        }
         //return view;
     }
 
@@ -72,6 +79,7 @@ $().ready(function () {
                 audio: false
             },
             function (localMediaStream) {
+                
                 cameraVideo = document.getElementById('videoCamera');
                 cameraVideo.src = window.URL.createObjectURL(localMediaStream);
                 localCameraMediaStream = localMediaStream;
@@ -96,6 +104,25 @@ $().ready(function () {
             console.log("has Get User Media");
             startCamera();
         }
+    });
+
+    $('#captureCamera').click(function () {
+  
+        window.requestAnimationFrame(function(time){
+            var ctx = cameraRecordCanvas.getContext('2d');
+            //ctx.scale(0.8, 0.8);
+            ctx.drawImage(cameraVideo, 0, 0, 600, 300);
+            var imageDataUrl = cameraRecordCanvas.toDataURL("image/webp");
+            //var imageData = ctx.getImageData(0, 0, 600, 300);
+            //console.log(imageDataUrl.length);
+            console.log(imageDataUrl);
+            ws.send(imageDataUrl.toString());
+
+            var videoImg = document.getElementById("videoImg");
+            videoImg.setAttribute("src", imageDataUrl.toString());
+            videoImg.setAttribute("width", "600");
+            videoImg.setAttribute("height", "300");
+        });
     });
 
 });

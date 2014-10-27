@@ -28,60 +28,57 @@ namespace OneCamera
         {
             WebSocket socket = context.WebSocket;
             bool read = true;
-            long lastKey = 0;
+            string lastImageUnFinishedString = null;
             while (true)
-            {  
+            {
                 if (socket.State == WebSocketState.Open)
                 {
                     if (read)
                     {
-                        var buffer = new ArraySegment<byte>(new byte[100000]);
+                        var buffer = new ArraySegment<byte>(new byte[102400]);
                         WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
-                        string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
-                        if (userMessage.StartsWith("Send Require"))
+                        string receivedData = Encoding.UTF8.GetString(buffer.Array);
+                        int goodLength = receivedData.IndexOf("\0");
+                        receivedData = receivedData.Substring(0, goodLength);
+                        if (receivedData.StartsWith("Send Require"))
                             read = false;
+                        else if (receivedData.StartsWith("data:image/webp;base64,"))
+                        {
+                            OneCameraBuffer.Instance.AddNewFrame(lastImageUnFinishedString);
+                            lastImageUnFinishedString = receivedData;
+                        }
                         else
-                            OneCameraBuffer.Instance.AddNewFrame(buffer);
+                        {
+                            lastImageUnFinishedString += receivedData;
+                        }
                     }
                     else
                     {
-                        ArraySegment<byte> buffer;
-                        long recentKey = OneCameraBuffer.Instance.GetFrame(lastKey, out buffer);
-                        if (recentKey != 0 && recentKey > lastKey && buffer != null)
+                        string receivedData = OneCameraBuffer.Instance.GetFrame();
+                        if (receivedData != null && receivedData.Length > 100)
                         {
-                            lastKey = recentKey;
+                            var buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(receivedData));
                             await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
                         }
                     }
                 }
             }
-
-            //var webSocketTasks = new List<Task>();
-            //webSocketTasks.Add(Task.Factory.StartNew(new Action<object>(async ws => {
-            //    var sendWs = ws as WebSocket;
-            //    long lastKey = 0;
-            //    while(sendWs.State == WebSocketState.Open)
-            //    {
-            //        ArraySegment<byte> buffer;
-            //        lastKey = OneCameraBuffer.Instance.GetFrame(lastKey, out buffer);
-            //        if (lastKey != 0)
-            //            await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
-            //    }
-            //}), socket));
-            //webSocketTasks[0].Start();
-            //webSocketTasks.Add(Task.Factory.StartNew(new Action<object>(async ws =>
-            //{
-            //    var receiveWs = ws as WebSocket;
-            //    while (receiveWs.State == WebSocketState.Open)
-            //    {
-            //        var buffer = new ArraySegment<byte>(new byte[50960]);
-            //        WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
-            //        OneCameraBuffer.Instance.AddNewFrame(buffer);
-            //    }
-            //}), socket));
-            //webSocketTasks[1].Start();
-            //Task.WaitAll(webSocketTasks.ToArray());
         }
+
+        static byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
+        static string GetString(byte[] bytes)
+        {
+            char[] chars = new char[bytes.Length / sizeof(char)];
+            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            return new string(chars);
+        }
+
 
         public bool IsReusable
         {
