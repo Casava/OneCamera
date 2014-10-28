@@ -2,11 +2,11 @@ $(function(){
 
 	var socket;
 
-	var recevier = $("#recevier");
-	// recevier.attr("src", evt.data);
-	recevier.css("width", 500);
-	recevier.css("height", 250);
-	recevier.css("background-color", "#000000");
+	var receiver = $("#receiver");
+	receiver.css("width", 500);
+	receiver.css("height", 250);
+	receiver.css("background-color", "#000000");
+	receiver.css("display", "block");
 
 	$('#start').on('click', function(){
 		console.log("started");
@@ -17,8 +17,8 @@ $(function(){
 			console.log("connected");
 		}
 
-		socket.onmessage = function(){
-			
+		socket.onmessage = function(data){
+			receiver.attr('src', data.data);
 		}
 
 		socket.onerror = function(env){
