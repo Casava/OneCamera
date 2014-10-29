@@ -27,26 +27,58 @@ namespace OneCamera
         private async Task ProcessRequest(AspNetWebSocketContext context)
         {
             WebSocket socket = context.WebSocket;
+            bool read = true;
+            string lastImageUnFinishedString = null;
             while (true)
             {
-                var buffer = new ArraySegment<byte>(new byte[50960]);
-                WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
                 if (socket.State == WebSocketState.Open)
                 {
-                    //var videoLength = VideoData.Instance.GetVideoLength();
-
-                    //string userMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
-                    //var newBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
-                    //var newBuffer = new ArraySegment<byte>(buffer.Array, 0, result.Count);
-                    //await socket.SendAsync(newBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
-                    await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
-                }
-                else
-                {
-                    break;
+                    if (read)
+                    {
+                        var buffer = new ArraySegment<byte>(new byte[102400]);
+                        WebSocketReceiveResult result = await socket.ReceiveAsync(buffer, CancellationToken.None);
+                        string receivedData = Encoding.UTF8.GetString(buffer.Array);
+                        int goodLength = receivedData.IndexOf("\0");
+                        receivedData = receivedData.Substring(0, goodLength);
+                        if (receivedData.StartsWith("Send Require"))
+                            read = false;
+                        else if (receivedData.StartsWith("data:image/webp;base64,"))
+                        {
+                            OneCameraBuffer.Instance.AddNewFrame(lastImageUnFinishedString);
+                            lastImageUnFinishedString = receivedData;
+                        }
+                        else
+                        {
+                            lastImageUnFinishedString += receivedData;
+                        }
+                    }
+                    else
+                    {
+                        string receivedData = OneCameraBuffer.Instance.GetFrame();
+                        if (receivedData != null && receivedData.Length > 100)
+                        {
+                            var buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(receivedData));
+                            await socket.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                        }
+                    }
                 }
             }
         }
+
+        static byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
+        static string GetString(byte[] bytes)
+        {
+            char[] chars = new char[bytes.Length / sizeof(char)];
+            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            return new string(chars);
+        }
+
 
         public bool IsReusable
         {
