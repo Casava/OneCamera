@@ -7,7 +7,8 @@
             //http://msdn.microsoft.com/library/azure/dn593606.aspx
             // setup the video element and attach it to the Dash player
             function setupVideo() {
-                var url = "http://onecamera.streaming.mediaservices.windows.net/c07bb729-785e-4fa4-81e5-d26ce35b376a/WP_20140928_004.ism/Manifest(format=mpd-time-csf)";
+                //var url = "http://onecamera.streaming.mediaservices.windows.net/c07bb729-785e-4fa4-81e5-d26ce35b376a/WP_20140928_004.ism/Manifest(format=mpd-time-csf)";
+                var url = "http://onecamera.streaming.mediaservices.windows.net/cdb5ba1f-b0bc-43eb-8bd9-69be500df6f6/WP_20140105_010.ism/Manifest(format=mpd-time-csf)";
                 var context = new Dash.di.DashContext();
                 var player = new MediaPlayer(context);
                 player.startup();
