@@ -19,3 +19,10 @@ C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\Microsoft.WebSock
 C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Debug\OneCamera.dll
 C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Debug\OneCamera.pdb
 C:\Users\Bo\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Debug\OneCamera.csprojResolveAssemblyReference.cache
+C:\Users\bhu\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll.config
+C:\Users\bhu\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.dll
+C:\Users\bhu\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\OneCamera.pdb
+C:\Users\bhu\Documents\GitHub\OneCamera\OneCamera\OneCamera\bin\Microsoft.WebSockets.dll
+C:\Users\bhu\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Debug\OneCamera.dll
+C:\Users\bhu\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Debug\OneCamera.pdb
+C:\Users\bhu\Documents\GitHub\OneCamera\OneCamera\OneCamera\obj\Debug\OneCamera.csprojResolveAssemblyReference.cache

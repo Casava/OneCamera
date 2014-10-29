@@ -60,20 +60,21 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="camera.js" />
+    <Content Include="camera.html" />
     <Content Include="Content\video-js.css" />
     <Content Include="Content\video-js.min.css" />
     <Content Include="Content\video-js.swf" />
+    <Content Include="fluid.html" />
     <Content Include="fonts\vjs.svg" />
     <Content Include="fonts\vjs.woff" />
     <Content Include="fonts\vjs.ttf" />
     <Content Include="fonts\vjs.eot" />
     <Content Include="Content\video-js.less" />
-    <Content Include="onecamera.html" />
-    <Content Include="webSocket.js" />
     <None Include="Properties\PublishProfiles\onecamera %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\onecamera %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\onecamera %284%29.pubxml" />
+    <None Include="Properties\PublishProfiles\onecamera %285%29.pubxml" />
+    <None Include="Properties\PublishProfiles\onecamera %286%29.pubxml" />
     <None Include="Properties\PublishProfiles\onecamera.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -87,6 +88,7 @@
     <Content Include="packages.config" />
     <Content Include="OneCameraWebSocketHandler.ashx" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\dash.all.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\video.dev.js" />

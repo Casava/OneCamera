@@ -3,24 +3,50 @@
     <head>
         <title>One Camera</title>
         <script type="text/javascript" src="Scripts/jquery-2.1.1.js"></script>
-        <script type="text/javascript" src="webSocket.js"></script>
-        <script type="text/javascript" src="camera.js"></script>
+        <script type="text/javascript">
+            var ws;
+            $().ready(function () {
+                var lastReceivedData;
+
+                console.log("websocket connecting");
+
+                ws = new WebSocket("ws://onecamera.azurewebsites.net/OneCamera/OneCameraWebSocketHandler.ashx");
+                //ws = new WebSocket("ws://localhost:50330/OneCamera/OneCameraWebSocketHandler.ashx");
+                ws.onopen = function () {
+                    console.log("connected");
+                    console.log("Send Requiring");
+                    ws.send("Send Require");
+                    console.log("Send Require");
+                };
+                ws.onmessage = function (evt) {
+                    if (evt.data.toString().substring(0, 5) === 'data:' && lastReceivedData) {
+                        var videoImg = document.getElementById("videoImg");
+                        videoImg.setAttribute("src", evt.data.toString());
+                        videoImg.setAttribute("width", "600");
+                        videoImg.setAttribute("height", "300");
+                        lastReceivedData = evt.data.toString();
+                    }
+                    else
+                        lastReceivedData += evt.data.toString();
+                };
+                ws.onerror = function (evt) {
+                    console.assert(evt.message);
+                };
+                ws.onclose = function () {
+                    console.assert("disconnected");
+                };
+            });
+        </script>
     </head>
     <body>
-        <input type="button" value="open camera" id="btnCamera" />
-        <br/>
-        
-        <span>Video from Camera</span>
-        <video autoplay id="videoCamera"></video>
-
-        <br />
         <img id="videoImg" width="600" height="300" />
-
-
         <br/>
-        <input type="button" value="CAPTURE camera" id="captureCamera" height="30" width="30" />
-        <br />
-    </body>
+        <!--<a href="http://localhost:50330/camera.html">Open My Camera</a>-->
+        <a href="http://onecamera.azurewebsites.net/camera.html">Open My Camera</a>
+        
+        <!--<a href="http://localhost:50330/fluid.html">Watch on mode fluid</a>-->
+        <a href="http://onecamera.azurewebsites.net/fluid.html">Watch on mode fluid</a>
+</body>
 </html>
 
 
